@@ -1,0 +1,45 @@
+{
+  "name": "codsworth",
+  "version": "1.0.0",
+  "description": "Мой шаблон для WebDev",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaximStudenikin/Codsworth.git"
+  },
+  "keywords": [
+    "template",
+    "web",
+    "development",
+    "automation",
+    "html",
+    "sass",
+    "pug",
+    "gulp"
+  ],
+  "author": "Maxim Studenikin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaximStudenikin/Codsworth/issues"
+  },
+  "homepage": "https://github.com/MaximStudenikin/Codsworth#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-cleancss": "^0.2.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-group-css-media-queries": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-sass-glob": "^1.0.8",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}
