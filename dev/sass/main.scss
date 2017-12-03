@@ -1,5 +1,19 @@
+// resolutions
+$large__devices: 1200px;
+$desktops: 992px;
+$tablets: 768px;
+$phones: 480px;
+
+//config
+@import 'config/_fn';
+@import 'config/_mixin';
+
 //layout
 @import 'layout/_tag_reset';
+@import "layout/_fonts";
+@import "layout/_base";
+
+
 
 //test
 @import 'test';
