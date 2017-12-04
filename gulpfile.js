@@ -33,7 +33,7 @@ const paths = {
 
 function html() {
     return gulp.src(paths.dev + 'html/*.pug')
-        .pipe(pug({pretty: true}))                  //pretty: true убирает что бы index был читаймым
+        .pipe(pug({pretty: true}))                  //pretty: true что бы index был читаймым
         .pipe(rename({ basename: "index" }))
         .pipe(gulp.dest(paths.build))
 }
