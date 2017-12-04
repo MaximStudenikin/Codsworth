@@ -14,5 +14,5 @@
 
 Как установить 
 
-1. git clone https://github.com/MaximStudenikin/Codsworth.git
+1. git clone https://github.com/MaximStudenikin/Codsworth.git -b v1.0.0
 2. npm i
