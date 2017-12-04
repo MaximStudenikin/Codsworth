@@ -8,6 +8,7 @@ const sassGlob = require('gulp-sass-glob');
 const groupMediaCSSQueries = require('gulp-group-css-media-queries');
 const cleanCSS = require('gulp-cleancss');
 const autoPref = require('gulp-autoprefixer');
+const pxtorem = require('postcss-pxtorem');
 
 const sourcemaps = require('gulp-sourcemaps');
 const rename = require('gulp-rename');

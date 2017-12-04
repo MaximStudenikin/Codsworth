@@ -9,6 +9,7 @@ $phones: 480px;
 @import 'config/_mixin';
 
 //layout
+@import "node_modules/normalize.css/normalize";
 @import 'layout/_tag_reset';
 @import "layout/_fonts";
 @import "layout/_base";
