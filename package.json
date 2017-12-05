@@ -1,9 +1,11 @@
 {
   "name": "codsworth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Мой шаблон для WebDev",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack dev/common/index.js build/common/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -40,7 +42,6 @@
     "gulp-sass-glob": "^1.0.8",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uglify": "^3.0.0",
-    "postcss-pxtorem": "^4.0.1",
     "webpack": "^3.10.0"
   },
   "dependencies": {

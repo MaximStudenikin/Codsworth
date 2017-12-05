@@ -8,7 +8,6 @@ const sassGlob = require('gulp-sass-glob');
 const groupMediaCSSQueries = require('gulp-group-css-media-queries');
 const cleanCSS = require('gulp-cleancss');
 const autoPref = require('gulp-autoprefixer');
-const pxtorem = require('postcss-pxtorem');
 
 const sourcemaps = require('gulp-sourcemaps');
 const rename = require('gulp-rename');
@@ -56,11 +55,11 @@ function style()  {
 
 
 //js
-function script() {
-    return gulp.src(paths.dev + 'common/*.js')
-        .pipe(uglify())
-        .pipe(gulp.dest(paths.build + 'common/'))
-}
+// function script() {
+//     return gulp.src(paths.dev + 'common/*.js')
+//         .pipe(uglify())
+//         .pipe(gulp.dest(paths.build + 'common/'))
+// }
 
 function remov() {
     return del('build/')
@@ -70,7 +69,7 @@ function remov() {
 function watch() {
     gulp.watch(paths.dev + 'html/*.pug', html);
     gulp.watch(paths.dev + 'sass/*.scss', style);
-    gulp.watch(paths.dev + 'common/*.js', script);
+    // gulp.watch(paths.dev + 'common/*.js', script);
 }
 
 
@@ -93,19 +92,19 @@ function serve() {
 
 exports.html = html;
 exports.style = style;
-exports.script = script;
+// exports.script = script;
 exports.remov = remov;
 exports.watch = watch;
 
 gulp.task('build', gulp.series(
     remov,
     html,
-    style,
-    script
+    style
+    // script
 ));
 
 gulp.task('default', gulp.series(
     remov,
-    gulp.parallel(style, script, html),
+    gulp.parallel(style, html),
     gulp.parallel(watch, serve)
 ));
