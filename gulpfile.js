@@ -15,7 +15,9 @@ const pug = require('gulp-pug');
 //img
 const image = require('gulp-image');
 //js
-const uglify = require('gulp-uglify');
+const gulpWebpack = require('gulp-webpack');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js');
 //del
 const del = require('del');
 //server
@@ -25,39 +27,39 @@ const browserSync = require('browser-sync').create();
 const paths = {
     build: './build/',       //Готовый продукт
     dev: './dev/',       //Все наше сокровище
-    src: './soucre/'       //исходники для работы (шрифты, картинки и тд)
+    src: './source/'       //исходники для работы (шрифты, картинки и тд)
 };
 
 function html() {
-    return gulp.src(paths.dev + 'html/*.pug')
+    return gulp.src(paths.dev + 'html/pages/*.pug')
         .pipe(pug({pretty: true}))                  //pretty: true что бы index был читаймым
-        .pipe(rename({basename: "index"}))
+        // .pipe(rename({basename: "index"}))
         .pipe(gulp.dest(paths.build))
 }
 
 function style() {
-    return gulp.src(paths.dev + 'sass/main.scss')
+    return gulp.src(paths.dev + 'sass/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sassGlob())
         .pipe(sass())
         .pipe(groupMediaCSSQueries())
         .pipe(cleanCSS())
-        .pipe(autoPref({
-            browsers: ['last 15 versions'],
-            cascade: false
-        }))
+        // .pipe(autoPref({
+        //     browsers: ['last 15 versions'],
+        //     cascade: false
+        // }))
         .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest(paths.build + 'css/'))
 }
 
 
-//js
-// function script() {
-//     return gulp.src(paths.dev + 'common/*.js')
-//         .pipe(uglify())
-//         .pipe(gulp.dest(paths.build + 'common/'))
-// }
+// webpack(js)
+function scripts() {
+    return gulp.src(paths.dev + 'common/**/*.js')
+        .pipe(gulpWebpack(webpackConfig, webpack))
+        .pipe(gulp.dest(paths.build +'common/'));
+}
 
 //img
 function img() {
@@ -74,7 +76,7 @@ function img() {
             concurrent: 10
         }))
         .pipe(rename({suffix: "_min"}))
-        .pipe(gulp.dest(paths.build + 'images/'))
+        .pipe(gulp.dest(paths.build + 'img/'))
 }
 
 function remov() {
@@ -83,10 +85,10 @@ function remov() {
 
 //watch
 function watch() {
-    gulp.watch(paths.dev + 'html/*.pug', html);
-    gulp.watch(paths.dev + 'sass/*.scss', style);
-    gulp.watch(paths.src + 'img/*.jpg', img);
-    // gulp.watch(paths.dev + 'common/*.js', script);
+    gulp.watch(paths.dev + 'html/**/*.pug', html);
+    gulp.watch(paths.dev + 'sass/**/*.scss', style);
+    gulp.watch(paths.src + 'images/*.jpg', img);
+    gulp.watch(paths.dev + 'common/**/*.js', scripts);
 }
 
 
@@ -94,13 +96,15 @@ function serve() {
 
     browserSync.init({
         server: {
-            baseDir: paths.build
+            baseDir: paths.build,
+            index: "welcome__page.html"
         },
         ghostMode: {
             clicks: true,
             forms: true,
             scroll: true
         },
+        browser: "chrome",
         port: 3000,
         online: false
     });
@@ -109,7 +113,7 @@ function serve() {
 
 exports.html = html;
 exports.style = style;
-// exports.script = script;
+exports.scripts = scripts;
 exports.img = img;
 exports.remov = remov;
 exports.watch = watch;
@@ -118,12 +122,12 @@ gulp.task('build', gulp.series(
     remov,
     html,
     style,
+    scripts,
     img
-    // script
 ));
 
 gulp.task('default', gulp.series(
     remov,
-    gulp.parallel(style, html, img),
+    gulp.parallel(style, html, img, scripts),
     gulp.parallel(watch, serve)
 ));
