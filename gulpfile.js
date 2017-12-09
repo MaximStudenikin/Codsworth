@@ -10,10 +10,15 @@ const cleanCSS = require('gulp-cleancss');
 const autoPref = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const rename = require('gulp-rename');
+const concat = require('gulp-concat');
 //html
 const pug = require('gulp-pug');
 //img
 const image = require('gulp-image');
+
+//fonts
+//:(
+
 //js
 const gulpWebpack = require('gulp-webpack');
 const webpack = require('webpack');
@@ -44,10 +49,10 @@ function style() {
         .pipe(sass())
         .pipe(groupMediaCSSQueries())
         .pipe(cleanCSS())
-        // .pipe(autoPref({
-        //     browsers: ['last 15 versions'],
-        //     cascade: false
-        // }))
+        .pipe(autoPref({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest(paths.build + 'css/'))
@@ -79,6 +84,9 @@ function img() {
         .pipe(gulp.dest(paths.build + 'img/'))
 }
 
+//fonts
+//:(
+
 function remov() {
     return del('build/')
 }
@@ -96,8 +104,7 @@ function serve() {
 
     browserSync.init({
         server: {
-            baseDir: paths.build,
-            index: "welcome__page.html"
+            baseDir: paths.build
         },
         ghostMode: {
             clicks: true,
@@ -115,6 +122,7 @@ exports.html = html;
 exports.style = style;
 exports.scripts = scripts;
 exports.img = img;
+// exports.fonts = fonts;
 exports.remov = remov;
 exports.watch = watch;
 
