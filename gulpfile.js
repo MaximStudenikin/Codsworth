@@ -92,8 +92,11 @@ function img() {
 
 //svg
  function svg() {
-    return gulp.src(paths.src + 'svg/*.svg')
-        .pipe(svgSprite())
+    return gulp.src('soucre/svg/*.svg')
+        .pipe(svgSprite({
+            baseSize: 16,
+            mode: "symbols"
+        }))
         .pipe(gulp.dest(paths.build + "img/svg/"));
 }
 
