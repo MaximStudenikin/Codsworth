@@ -19,6 +19,9 @@ const image = require('gulp-image');
 //fonts
 //:(
 
+//SVG
+const svgSprite = require('gulp-svg-sprites');
+
 //js
 const gulpWebpack = require('gulp-webpack');
 const webpack = require('webpack');
@@ -87,6 +90,13 @@ function img() {
 //fonts
 //:(
 
+//svg
+ function svg() {
+    return gulp.src(paths.src + 'svg/*.svg')
+        .pipe(svgSprite())
+        .pipe(gulp.dest(paths.build + "img/svg/"));
+}
+
 function remov() {
     return del('build/')
 }
@@ -122,7 +132,7 @@ exports.html = html;
 exports.style = style;
 exports.scripts = scripts;
 exports.img = img;
-// exports.fonts = fonts;
+exports.svg = svg;
 exports.remov = remov;
 exports.watch = watch;
 
@@ -131,11 +141,12 @@ gulp.task('build', gulp.series(
     html,
     style,
     scripts,
-    img
+    img,
+    svg
 ));
 
 gulp.task('default', gulp.series(
     remov,
-    gulp.parallel(style, html, img, scripts),
+    gulp.parallel(style, html, img, scripts, svg),
     gulp.parallel(watch, serve)
 ));
