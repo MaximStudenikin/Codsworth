@@ -18,5 +18,5 @@
 1. git clone https://github.com/MaximStudenikin/Codsworth.git -b 1.0.1 
 2. npm i
 
-
+---------------------------------------
 Автор: Максим Студеникин
