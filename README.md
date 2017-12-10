@@ -23,7 +23,7 @@
 - Ужимание изобраений jpg
 - Генерация svg спрайта
 - Генерация шрифтов
-- browserSync (livereload, ghostMode)
+- browserSync (ghostMode)
 
 Пути
 --
