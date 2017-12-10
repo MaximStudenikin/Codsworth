@@ -21,6 +21,8 @@
 - компиляция pug (jedi)
 - Компиляция js через webpack 3
 - Ужимание изобраений jpg
+- Генерация svg спрайта
+- Генерация шривтов
 - browserSync (livereload, ghostMode)
 
 Пути
