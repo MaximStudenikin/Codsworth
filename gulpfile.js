@@ -17,8 +17,7 @@ const pug = require('gulp-pug');
 const image = require('gulp-image');
 
 //fonts
-//:(
-
+const fontmin = require('gulp-fontmin');
 //SVG
 const svgSprite = require('gulp-svg-sprites');
 
@@ -39,7 +38,7 @@ const paths = {
 };
 
 function html() {
-    return gulp.src(paths.dev + 'html/pages/*.pug')
+    return gulp.src(paths.dev + 'html/*.pug')
         .pipe(pug({pretty: true}))                  //pretty: true что бы index был читаймым
         // .pipe(rename({basename: "index"}))
         .pipe(gulp.dest(paths.build))
@@ -66,7 +65,7 @@ function style() {
 function scripts() {
     return gulp.src(paths.dev + 'common/**/*.js')
         .pipe(gulpWebpack(webpackConfig, webpack))
-        .pipe(gulp.dest(paths.build +'common/'));
+        .pipe(gulp.dest(paths.build + 'common/'));
 }
 
 //img
@@ -88,16 +87,47 @@ function img() {
 }
 
 //fonts
-//:(
+
+function minifyFont(text, cb) {
+    gulp
+        .src('./soucre/fonts/**/*')
+        .pipe(fontmin({
+            text: text
+        }))
+        .pipe(gulp.dest('./build/fonts'))
+        .on('end', cb);
+}
+
+gulp.task('fonts', function (cb) {
+
+    var buffers = [];
+
+    gulp
+        .src('./build/main.html')
+        .on('data', function (file) {
+            buffers.push(file.contents);
+        })
+        .on('end', function () {
+            var text = Buffer.concat(buffers).toString('utf-8');
+            minifyFont(text, cb);
+        });
+
+});
+
+
+// gulp.task('fonts', function () {
+//     return gulp.src('./soucre/fonts/**/*')
+//         .pipe(gulp.dest('./build/'))
+// })
 
 //svg
- function svg() {
+function svg() {
     return gulp.src('soucre/svg/*.svg')
         .pipe(svgSprite({
             baseSize: 16,
             mode: "symbols"
         }))
-        .pipe(gulp.dest(paths.build + "img/svg/"));
+        .pipe(gulp.dest(paths.build + "img/"))
 }
 
 function remov() {
